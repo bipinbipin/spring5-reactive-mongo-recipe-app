@@ -4,6 +4,7 @@ import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.domain.UnitOfMeasure;
 import guru.springframework.repositories.UnitOfMeasureRepository;
+import guru.springframework.repositories.reactive.UnitOfMeasureReactiveRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,13 +22,13 @@ public class UnitOfMeasureServiceImplTest {
     UnitOfMeasureService service;
 
     @Mock
-    UnitOfMeasureRepository unitOfMeasureRepository;
+    UnitOfMeasureReactiveRepository unitOfMeasureReactiveRepository;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        service = new UnitOfMeasureServiceImpl(unitOfMeasureRepository, unitOfMeasureToUnitOfMeasureCommand);
+        service = new UnitOfMeasureServiceImpl(unitOfMeasureReactiveRepository, unitOfMeasureToUnitOfMeasureCommand);
     }
 
     @Test
@@ -42,7 +43,7 @@ public class UnitOfMeasureServiceImplTest {
         uom2.setId("2");
         unitOfMeasures.add(uom2);
 
-        when(unitOfMeasureRepository.findAll()).thenReturn(unitOfMeasures);
+        when(unitOfMeasureReactiveRepository.findAll()).thenReturn(unitOfMeasures);
 
         //when
         Set<UnitOfMeasureCommand> commands = service.listAllUoms();
